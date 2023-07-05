@@ -1,6 +1,8 @@
 <script lang="ts">
 // 还是vue2的方式好用, vue3+ts+setup的写法不太好排查问题
 // Home页的list列表页
+import { Character } from '~/common/types'
+
 export default {
   data() {
     return {
@@ -35,6 +37,11 @@ export default {
       }
       return
     },
+
+    sendToParent(_character: Character) {
+      console.log('sendToParent', _character)
+      this.$emit('listenToCharacterListEvent', _character)
+    }
   }
 }
 
@@ -43,7 +50,7 @@ export default {
 <template>
   <div class="mx-auto h-full w-full">
     <div class="flex flex-wrap justify-between overflow-auto h-full w-full px-[5%]">
-      <div v-for="(_character, index) in characterList">
+      <div v-for="(_character, index) in characterList" @click="sendToParent(_character)">
         <CharacterInfo v-bind:character=_character></CharacterInfo>
       </div>
     </div>
@@ -51,4 +58,4 @@ export default {
 </template>
 
 <style>
-</style>
+</style>types

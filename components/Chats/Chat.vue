@@ -1,6 +1,8 @@
 <!-- 聊天页面，左边是character列表页，右边是聊天框 -->
 <script lang="ts">
 
+// import { Character } from "~/common/types"
+
 export default {
     data() {
         return {
@@ -19,8 +21,14 @@ export default {
         }
     },
 
+    props: {
+        clickedCharacter: null,
+    },
+
     async mounted() {
         this.characterList = await this.listCharacteHome()
+        this.currentCharacter = this.clickedCharacter
+        console.log("chat mounted", this.currentCharacter)
     },
 
     methods: {
@@ -204,4 +212,4 @@ export default {
     --el-input-bg-color: #1F2128;
     --el-input-border-radius: 2rem;
 }
-</style>
+</style>types

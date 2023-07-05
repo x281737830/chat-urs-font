@@ -1,4 +1,7 @@
 <script lang="ts">
+
+import { Character } from '~/common/types'
+
 export default {
   data() {
     return {
@@ -7,7 +10,8 @@ export default {
       menuActive0: true,
       menuActive1: false,
       menuActive2: false,
-      count: 0
+      count: 0,
+      clickedCharacter: null
     }
   },
   beforeCreate() {
@@ -28,6 +32,13 @@ export default {
       this.menuActive1 = this.menuActive[1]
       this.menuActive2 = this.menuActive[2]
     },
+
+    // 接收CharacterList子组件返回的消息,这里是一个点击事件
+    handleCharacterListMessage(_character: any) {
+      console.log('handleCharacterListMessage', _character)
+      this.clickedCharacter = _character
+      this.handleMenuSelect("2")
+    }
   }
 }
 </script>
@@ -61,8 +72,8 @@ export default {
         <div class="border-b-[#33343B] border-b-[1px] h-[10vh]">
           <SearchBar></SearchBar>
         </div>
-        <div v-if="menuActive0" class="h-[88vh] w-full"><CharacterList></CharacterList></div>
-        <div v-if="menuActive1" class="h-[88vh]"><ChatsChat></ChatsChat></div>
+        <div v-if="menuActive0" class="h-[88vh] w-full"><CharacterList v-on:listenToCharacterListEvent="handleCharacterListMessage"></CharacterList></div>
+        <div v-if="menuActive1" class="h-[88vh]"><ChatsChat :clickedCharacter="clickedCharacter"></ChatsChat></div>
         <!-- <div v-if="menuActive[2]"><CharacterList></CharacterList></div> -->
       </el-col>
     </el-row>

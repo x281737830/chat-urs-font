@@ -30,4 +30,4 @@ const props = defineProps<{
 /* .el-avatar {
     --el-avatar-size: 100%
 } */
-</style>
+</style>types
